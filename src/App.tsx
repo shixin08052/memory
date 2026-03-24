@@ -1,25 +1,31 @@
-// src/App.jsx
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
+// 1. 这里定义了数据的“形状”，告诉 TypeScript 我们会存哪些数据
+interface Issue {
+  id: string;
+  text: string;
+  person: string;
+  resolved: boolean;
+}
+
 function App() {
-  const [issues, setIssues] = useState([]);
+  // 2. 这里加上了 <Issue[]>，告诉它这是一个装满 Issue 的数组，不再是 never 了
+  const [issues, setIssues] = useState<Issue[]>([]);
   const [inputText, setInputText] = useState('');
   const [person, setPerson] = useState('a');
   const [loading, setLoading] = useState(true);
 
-  // 首次加载拉取数据
   useEffect(() => {
     fetchIssues();
   }, []);
 
-  // 调用自建的 GET 接口
   const fetchIssues = async () => {
     setLoading(true);
     try {
       const res = await fetch('/api/issues');
-      const data = await res.json();
-      setIssues(data);
+      const data: Issue[] = await res.json();
+      setIssues(data || []);
     } catch (error) {
       console.error("加载失败:", error);
     } finally {
@@ -27,7 +33,6 @@ function App() {
     }
   };
 
-  // 调用自建的 POST 接口
   const addIssue = async () => {
     if (!inputText.trim()) return;
     
@@ -46,12 +51,13 @@ function App() {
     }
   };
 
-  const handleKeyPress = (e) => {
+  // 3. 明确告诉它 e 是一个键盘事件
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') addIssue();
   };
 
-  // 调用自建的 PUT 接口更新状态
-  const toggleStatus = async (id) => {
+  // 4. 明确告诉它 id 是一个字符串
+  const toggleStatus = async (id: string) => {
     try {
       await fetch('/api/issues', {
         method: 'PUT',
