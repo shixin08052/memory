@@ -1,42 +1,69 @@
+:root {
+  --bg-color: #fff5f5;
+  --card-bg: #ffffff;
+  --text-main: #594a4e;
+  --text-light: #9a8c98;
+  --color-a-bg: #ffe3e3;
+  --color-a-border: #ffb3b3;
+  --color-b-bg: #e3f2fd;
+  --color-b-border: #90caf9;
+  --btn-color: #ff8fab;
+  --btn-hover: #fb6f92;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  font-family: 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+  color: var(--text-main);
+}
+
+/* 适配 React Vite 默认挂载点 */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.container {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 500px;
+  height: fit-content;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 143, 171, 0.15);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+h1 { text-align: center; color: var(--btn-hover); font-size: 24px; margin-bottom: 5px; }
+.subtitle { text-align: center; color: var(--text-light); font-size: 14px; margin-bottom: 25px; }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+.input-section { display: flex; gap: 10px; margin-bottom: 25px; }
+input[type="text"] { flex: 1; padding: 12px; border: 2px solid #f8edeb; border-radius: 12px; outline: none; font-size: 14px; transition: 0.3s; }
+input[type="text"]:focus { border-color: var(--btn-color); }
+select { padding: 12px; border: 2px solid #f8edeb; border-radius: 12px; outline: none; background: white; color: var(--text-main); }
 
-.card {
-  padding: 2em;
-}
+.add-btn { background: var(--btn-color); color: white; border: none; padding: 0 20px; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.add-btn:hover { background: var(--btn-hover); transform: translateY(-2px); }
 
-.read-the-docs {
-  color: #888;
+.list-container { list-style: none; padding: 0; margin: 0; }
+.list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; margin-bottom: 12px; border-radius: 12px; transition: all 0.3s ease; animation: fadeIn 0.4s ease; }
+
+.person-a { background-color: var(--color-a-bg); border-left: 6px solid var(--color-a-border); }
+.person-b { background-color: var(--color-b-bg); border-left: 6px solid var(--color-b-border); }
+
+.item-text { flex: 1; word-break: break-all; margin-right: 15px; line-height: 1.5; }
+
+.resolved { opacity: 0.6; }
+.resolved .item-text { text-decoration: line-through; color: var(--text-light); }
+
+.toggle-btn { background: white; border: 1px solid #ddd; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 12px; color: var(--text-light); transition: 0.3s; }
+.toggle-btn:hover { background: #f8f9fa; }
+.resolved .toggle-btn { background: #4ade80; border-color: #4ade80; color: white; font-weight: bold; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
